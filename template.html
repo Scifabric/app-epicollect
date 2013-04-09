@@ -249,6 +249,9 @@ pybossa.taskLoaded(function(task, deferred) {
                             'totalAreaSquareMilimeters': 0,
                             'task_id': task.id,
                             'lichen_picture': task.info.picture,
+                            'gps_latitude': task.info.gps.latitude,
+                            'gps_longitude': task.info.gps.longitude,
+                            'gps_accuracy': task.info.gps.accuracy,
                             'lichen_type': ''};
         task.info.path = '';
         var img = $('<img />');

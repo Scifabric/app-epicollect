@@ -1,0 +1,425 @@
+<style>
+    #layer0 {
+        position: relative;
+    }
+    #layer1 {
+        z-index: 1;
+    }
+    #layer2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
+    #measurements {
+    }
+</style>
+<div class="row">
+    <!-- Success and Error Messages for the user --> 
+    <div class="span6 offset2" style="height:50px">
+        <div id="success" class="alert alert-success" style="display:none;">
+            <a class="close">×</a>
+            <strong>Well done!</strong> Your answer has been saved
+        </div>
+        <div id="loading" class="alert alert-info" style="display:none;">
+            <a class="close">×</a>
+            Loading next task...
+        </div>
+        <div id="taskcompleted" class="alert alert-info" style="display:none;">
+            <strong>The task has been completed!</strong> Thanks a lot!
+        </div>
+        <div id="finish" class="alert alert-success" style="display:none;">
+            <strong>Congratulations!</strong> You have participated in all available tasks!
+            <br/>
+            <div class="alert-actions">
+                <a class="btn small" href="/">Go back</a>
+                <a class="btn small" href="/app">or, Check other applications</a>
+            </div>
+        </div>
+        <div id="error" class="alert alert-error" style="display:none;">
+            <a class="close">×</a>
+            <strong>Error!</strong> Something went wrong, please contact the site administrators
+        </div>
+    </div> <!-- End Success and Error Messages for the user -->
+</div> <!-- End of Row -->
+
+<!--
+    Task DOM for loading the Flickr Images
+    It uses the class="skeleton" to identify the elements that belong to the
+    task.
+-->
+<div class="row skeleton"> <!-- Start Skeleton Row-->
+    <div class="span6 "><!-- Start of Question and Submission DIV (column) -->
+        <div id="step1">
+            <h1 id="question">Do you see a lichen in this photo?</h1> <!-- The question will be loaded here -->
+            <div id="answer"> <!-- Start DIV for the submission buttons -->
+                <!-- If the user clicks this button, the saved answer will be value="yes"-->
+                <button class="btn btn-success btn-answer" value='Yes'><i class="icon icon-white icon-thumbs-up"></i> Yes</button>
+                <!-- If the user clicks this button, the saved answer will be value="no"-->
+                <button class="btn btn-danger btn-answer" value='No'><i class="icon icon-white icon-thumbs-down"></i> No</button>
+                <!-- If the user clicks this button, the saved answer will be value="NotKnown"-->
+                <button class="btn btn-answer" value='NotKnown'><i class="icon icon-white icon-question-sign"></i> I don't know</button>
+            </div><!-- End of DIV for the submission buttons -->
+        </div>
+        <div id="step1a" style="display:none;">
+            <h1>Which type of lichen do you see in the photo?</h1>
+            <ul class="thumbnails">
+                <li class="span2">
+                    <div class="thumbnail">
+                        <img src="http://farm1.staticflickr.com/47/134314157_b17f465dfc.jpg">
+                    <h3>Crusty</h3>
+                    <p style="font-size:10px;"><a href="http://www.flickr.com/photos/benetd/134314157/"><i class="icon-picture"></i> by benet2006</a></p>
+                    </div>
+                </li>
+                <li class="span2">
+                    <div class="thumbnail">
+                        <img src="http://farm3.staticflickr.com/2607/3986134065_faebf320c6.jpg">
+                        <h3>Leaflike</h3>
+                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/zquirell/3986134065/"><i class="icon-picture"></i> by Boriss Lariushin</a></p>
+                    </div>
+                </li>
+                <li class="span2">
+                    <div class="thumbnail">
+                        <img src="http://farm4.staticflickr.com/3294/2451758194_ea0bbfdcc9.jpg">
+                        <h3>Shrubby</h3>
+                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/7147684@N03/2451758194/"><i class="icon-picture"></i> by Jason Hollinger</a></p>
+                    </div>
+                </li>
+            </ul>
+            <select id="lichens" class="input-block-level">
+                <option value='crusty'>Crusty</option>
+                <option value='leaflike'>Leaflike</option>
+                <option value='shrubby'>Shrubby</option>
+            </select>
+            <br/>
+            <button  class="btn btn-answer" value="lichen-type">Done! Go to next step</button>
+        </div>
+        <div id="step2" style="display:none;">
+            <h1 id="question">Which coin is in the photo?</h1>
+            <!-- Info extracted from this link http://europa.eu/legislation_summaries/economic_and_monetary_affairs/introducing_euro_practical_aspects/l25028_en.htm -->
+            <select id="coins" class="input-block-level">
+                <option value='25.75'>2 EUR (Diameter in mm 25.75)</option>
+                <option value='23.25'>1 EUR (Diameter in mm 23.25)</option>
+                <option value='24.25'>0.50 EUR (Diameter in mm 24.25)</option>
+                <option value='22.25'>0.20 EUR (Diameter in mm 22.25)</option>
+                <option value='19.75'>0.10 EUR (Diameter in mm 19.75)</option>
+                <option value='21.25'>0.05 EUR (Diameter in mm 21.25)</option>
+                <option value='18.75'>0.02 EUR (Diameter in mm 18.75)</option>
+                <option value='16.25'>0.01 EUR (Diameter in mm 16.25)</option>
+            </select>
+            <br/>
+            <button  class="btn btn-answer" value="coin-diameter">Done! Go to next step</button>
+        </div>
+        <div id="step3" style="display:none;">
+            <h1>Calibrate the measurement</h1>
+            <h2>Click in the center of the coin</h2>
+            <h2 style="display:none">Now click in the border of the coin</h2>
+            <br/>
+            <button id="coinBtn" value="area" class="btn btn-answer">Finish calibration and go to next step</button>
+        </div>
+        <div id="step4" style="display:none;">
+            <h1>Measure the biggest lichen shown in the photo</h1>
+            <p>Now, you have to click in the image to draw a polygon on top of the biggest lichen shown in the photo.</p>
+            <p><strong>Area: </strong><span id="totalArea">...</span></p>
+            <p><strong>Air quality based on Area: </strong><span id="airQuality">...</span></p>
+            <button value="reset" class="btn btn-answer"><i class="icon-undo"></i> Reset the polygon and start again</button>
+            <br/>
+            <button id="saveBtn" value="save" class="btn btn-primary btn-answer"><i class="icon-save"></i> Save the measured area!</button>
+        </div>
+        <!-- Feedback items for the user -->
+        <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
+        <p>You have completed: <span id="done" class="label label-info"></span> tasks from
+        <!-- Progress bar for the user -->
+        <span id="total" class="label label-inverse"></span></p>
+        <div class="progress progress-striped">
+            <div id="progress" rel="tooltip" title="#" class="bar" style="width: 0%;"></div>
+        </div>
+        <!-- 
+            This application uses Disqus to allow users to provide some feedback.
+            The next section includes a button that when a user clicks on it will
+            load the comments, if any, for the given task
+        -->
+        <div id="disqus_show_btn" style="margin-top:5px;">
+            <button class="btn btn-primary btn-large btn-disqus" onclick="loadDisqus()"><i class="icon-comments"></i> Show comments</button>
+            <button class="btn btn-large btn-disqus" onclick="loadDisqus()" style="display:none"><i class="icon-comments"></i> Hide comments</button>
+        </div><!-- End of Disqus Button section -->
+        <!-- Disqus thread for the given task -->
+        <div id="disqus_thread" style="margin-top:5px;display:none"></div>
+    </div><!-- End of Question and Submission DIV (column) -->
+    <div id="layer0" class="span6"><!-- Start of Photo DIV (column) -->
+        <div id="layer1">
+        </div>
+        <div id="layer2">
+            <div id="measurements"></div>
+        </div>
+    </div><!-- End of Photo DIV (columnt) -->
+</div><!-- End of Skeleton Row -->
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    function loadDisqus() {
+    $("#disqus_thread").toggle();
+    $(".btn-disqus").toggle();
+    var disqus_shortname = 'pybossa'; // required: replace example with your forum shortname
+    //var disqus_identifier = taskId;
+    var disqus_developer = 1;
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    }
+
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script type="text/javascript" src="https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael-min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+// See this http://stackoverflow.com/a/11589350
+jQuery.fn.highlight = function() {
+   $(this).each(function() {
+        var el = $(this);
+        el.before("<div/>")
+        el.prev()
+            .width(el.width())
+            .height(el.height())
+            .css({
+                "position": "absolute",
+                "background-color": "#ffff99",
+                "opacity": ".9"   
+            })
+            .fadeOut(500);
+    });
+}
+
+function calculateXy(x, y, id) {
+    var X = Math.floor(x - $("#" + id).offset().left);
+    var Y = Math.floor(y - $("#" + id).offset().top);
+    return {'x': X, 'y': Y};
+}
+
+function calculateLength(x1, y1, x2, y2) {
+    var xs = x2 - x1;
+    var ys = y2 - y1;
+    return Math.sqrt((xs * xs) + (ys * ys));
+}
+
+function areaTriangle(ax, ay, bx, by, cx, cy) {
+    return Math.abs( ((( ax*(by - cy) ) + ( bx * (cy - ay) ) + ( cx *(ay - by) ))/2) );
+}
+
+function airQuality(area) {
+    if (area >= 100) {
+        return "Excellent";
+    }
+    if ((area >=70) && (area <= 99)) {
+        return "Good";
+    }
+    if ((area >=40) && (area <= 69)) {
+        return "Fair";
+    }
+    if ((area >=0) && (area <= 39)) {
+        return "Poor";
+    }
+}
+
+function loadUserProgress() {
+    pybossa.userProgress('flickrperson').done(function(data){
+        var pct = Math.round((data.done*100)/data.total);
+        $("#progress").css("width", pct.toString() +"%");
+        $("#progress").attr("title", pct.toString() + "% completed!");
+        $("#progress").tooltip({'placement': 'left'}); 
+        $("#total").text(data.total);
+        $("#done").text(data.done);
+    });
+}
+
+pybossa.taskLoaded(function(task, deferred) {
+    if ( !$.isEmptyObject(task) ) {
+        // load image from flickr
+        task.info.answer = {'coinDiameterMilimeters': 0,
+                            'coinRadiusPixels': 0,
+                            'coinCenterX': 0,
+                            'coinCenterY': 0,
+                            'polygon': [],
+                            'mmPerPixel': 0,
+                            'totalAreaSquareMilimeters': 0,
+                            'task_id': task.id,
+                            'lichen_picture': task.info.picture,
+                            'lichen_type': ''};
+        task.info.path = '';
+        var img = $('<img />');
+        img.load(function() {
+            // continue as soon as the image is loaded
+            deferred.resolve(task);
+        });
+        img.attr('src', task.info.picture);
+        //img.addClass('img-polaroid');
+        task.info.image = img;
+    }
+    else {
+        deferred.resolve(task);
+    }
+});
+
+pybossa.presentTask(function(task, deferred) {
+    if ( !$.isEmptyObject(task) ) {
+        $("#step1").show();
+        $("#step1a").hide();
+        $("#step2").hide();
+        $("#step3").hide();
+        $("#step4").hide();
+        loadUserProgress();
+        $('#layer1').html('').append(task.info.image);
+        var imgWidth = task.info.image.width();
+        var imgHeight = task.info.image.height();
+        console.log(imgWidth);
+        console.log(imgHeight);
+        $("#measurements").html("");
+        var paper = new Raphael("measurements", imgWidth, imgHeight);
+        var coinCenter = false;
+
+        $("#question").html(task.info.question);
+        $('#task-id').html(task.id);
+        $('.btn-answer').off('click').on('click', function(evt) {
+            var answer = $(evt.target).attr("value");
+            if (typeof answer != 'undefined') {
+                // Step 1: possible actions Yes, No or I don't Know
+                if (answer == 'Yes') {
+                    $("#step1").toggle();
+                    $("#step1a").toggle();
+                }
+                if ( (answer == 'No') || (answer == 'NotKnown') ) {
+                    //console.log(answer);
+                    pybossa.saveTask(task.id, task.info.answer).done(function() {
+                        deferred.resolve();
+                    });
+                    $("#loading").fadeIn(500);
+                    if ($("#disqus_thread").is(":visible")) {
+                        $('#disqus_thread').toggle();
+                        $('.btn-disqus').toggle();
+                    }
+                }
+                if (answer == 'lichen-type') {
+                    task.info.answer['lichen_type'] = $("select#lichens").children(":selected").val();
+                    $("#step1a").toggle();
+                    $("#step2").toggle();
+
+                }
+                // Step 2: possible actions Done! Go to next step
+                if (answer == 'coin-diameter') {
+                    $("#coinBtn").hide();
+                    task.info.answer['coinDiameterMilimeters'] = parseFloat($("select#coins").children(":selected").val());
+                    console.log(task.info.answer);
+                    $("#step2").toggle();
+                    $("#step3").toggle();
+                    if (task.info.answer['coinRadiusPixels'] == 0) {
+                        $('svg').attr('cursor', 'crosshair');
+                        $('svg').off('click').on('click', function(e){
+                            var c = calculateXy(e.pageX, e.pageY, "measurements");
+                            var X = c.x;
+                            var Y = c.y;
+                            if (coinCenter == false) {
+                                task.info.answer['coinCenterX'] = X;
+                                task.info.answer['coinCenterY'] = Y;
+                                coinCenter = true;
+                                $("#step3 > h2").toggle();
+                                $("#step3 > h2").highlight();
+                            }
+                            else {
+                                var xs = task.info.answer['coinCenterX'] - X;
+                                var ys = task.info.answer['coinCenterY'] - Y;
+                                var radius = Math.sqrt((xs * xs) + (ys * ys));
+                                var diameter = radius * 2;
+                                task.info.answer.mmPerPixel = task.info.answer['coinDiameterMilimeters']/diameter;
+                                console.log(radius);
+                                console.log(diameter);
+                                var p = paper.path("M" + task.info.answer['coinCenterX'] + "," + task.info.answer['coinCenterY']).animate( + " L" + X + "," + Y);
+                                console.log(p.getTotalLength());
+                                task.info.answer['coinRadiusPixels'] = radius;
+                                paper.circle(task.info.answer['coinCenterX'], task.info.answer['coinCenterY'], radius).attr("stroke", "cyan");
+                                $('svg').off('click');
+                                console.log("1 pixel corresponds to: " + task.info.answer.mmPerPixel);
+                                $("#coinBtn").show();
+                            }
+                        });
+                    }
+                }
+                // Step 3: possible actions area
+                if (answer == 'area') {
+                    $("#saveBtn").hide();
+                    $("#step3").toggle();
+                    $("#step4").toggle();
+                    $('svg').off('click').on('click', function(e){
+                        var c = calculateXy(e.pageX, e.pageY, "measurements");
+                        task.info.answer.polygon.push([c.x, c.y]);
+                        var polygon = task.info.answer.polygon;
+                        var path = 'M' ;
+                        for (var i=0; i<polygon.length; i++) {
+                            var p = polygon[i];
+                            path += " " + p[0] + " " + p[1];
+                        }
+                        path += " Z";
+                        paper.clear();
+                        var tmp = paper.path(path);
+                        tmp.attr({stroke: '#147EDB', 
+                                  'stroke-width': 2, 
+                                   fill: '#147EDB', 
+                                   'fill-opacity': 0.5});
+                        if (polygon.length >= 3) {
+                            $("#saveBtn").show();
+                            console.log(polygon);
+                            var a = d3.geom.polygon(polygon).area();
+                            // Compute area using triangulation
+                            //var triangles = d3.geom.delaunay(polygon);
+                            //var tmpArea = 0;
+                            //console.log("Number of triangles: " + triangles.length);
+                            //for (var i=0;i< triangles.length;i++) {
+                            //    var t = triangles[i];
+                            //    var a = t[0];
+                            //    var b = t[1];
+                            //    var c = t[2];
+                            //    tmpArea += areaTriangle(a[0], a[1], b[0], b[1], c[0], c[1]);
+                            //    console.log(tmpArea);
+                            //}
+                            console.log(a);
+                            var mmPerPixel = task.info.answer.mmPerPixel;
+                            var totalArea = Math.abs(parseFloat(a * (mmPerPixel * mmPerPixel)).toFixed(2));
+                            task.info.answer.totalAreaSquareMilimeters = totalArea;
+                            $("#airQuality").text(airQuality(totalArea));
+                            $("#totalArea").html(totalArea + " mm<sup>2</sup>");
+                        }
+                    });
+                }
+
+                if (answer == 'reset') {
+                    task.info.answer.polygon = [];
+                    $("#totalArea").html("0 mm<sup>2</sup>");
+                    $("#airQuality").html("...");
+                    paper.clear();
+                    $("#saveBtn").hide();
+                }
+                if (answer == 'save') {
+                    pybossa.saveTask(task.id, task.info.answer).done(function() {
+                        deferred.resolve();
+                    });
+                }
+            }
+            else {
+                $("#error").show();
+            }
+        });
+        $("#loading").hide();
+    }
+    else {
+        $(".skeleton").hide();
+        $("#loading").hide();
+        $("#finish").fadeIn(500);
+    }
+});
+
+pybossa.run('epicollect');
+</script>

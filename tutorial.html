@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="span12">
+        <div id="modal" class="modal hide fade">
+            <div class="modal-header">
+                <h3>Lichens</h3>
+            </div>
+            <div id="0" class="modal-body" style="display:none">
+                <p><strong>Hi!</strong> This is a <strong>demo application</strong> that shows how you can measure and analyze data from an EpiCollect Project within Crowdcrafting.org.
+               </p> 
+            </div>
+            <div id="1" class="modal-body" style="display:none">
+                <p>The application is very interesting. It loads a photo from an <a href="http://plus.epicollect.net/lichens">EpiCollect project</a> and asks you to analyze the uploaded data points by volunteers to project.</p>
+                <p>The EpiCollect project is recollecting pictures and locations from lichens in cities, and the goal is to analyze and study the quality of air based on the size and type of the lichens found in the city</p>
+            </div>
+            <div id="2" class="modal-body" style="display:none">
+                <p>First, the application will ask you if you see a lichen in the photo. Sometime it is difficult to identify them:</p>
+                <img src="http://i.imgur.com/Cv4jwJr.png">
+                <p>You can answer, Yes, No or I don't know, so other people can try to identify it. If you see a lichen, click in Yes and the next step will be loaded.</p>
+            </div>
+            <div id="3" class="modal-body" style="display:none">
+                <p>Then, you will have to classify the lichen:</p>
+                <img src="http://i.imgur.com/4r17azr.png">
+                </p>
+                <p>You will have below some example pictures a drop down where you can pick the correct lichen type. When you have chosen one, click in the Done button to load the next step.</p>
+            </div>
+            <div id="4" class="modal-body" style="display:none">
+                <p>In order to measure the area of the lichen, we need to calibrate the picture and size of pixels.</p>
+                <p>In the project, we recommend the users to take a picture of the lichen with a coin close to it:</p>
+                <img src="http://i.imgur.com/c2De7DF.png">
+                <p>In order to calibrate the measurement, you will have to click in the center of the coin, then in the border to calculate the radius and estimate how many millimeters a pixel is: </p>
+                <img src="http://i.imgur.com/rMbLsGD.png">
+                <p>As you will see, a circle will appear on top the image. <strong>Note:</strong> Usually, the coins and the camera are not perfectly aligned, so that's why you could see a small variation between the coin and the circle.</p>
+            </div>
+            <div id="5" class="modal-body" style="display:none">
+                <p>Finally, as the measurement has been correctly calibrated, now you can draw a polygon on top of the <strong>biggest</strong> lichen shown in the picture and save the area in order to load another lichen photo.</p>
+                <img src="http://i.imgur.com/D2dj9Ng.png">
+                <p><strong>Note:</strong> You can revert the polygon if you like, by clicking the Reset button</p>
+                <p>That's all! Now you can start helping in measuring the air quality from your computer!</p>
+            </div>
+            <div class="modal-footer">
+                <a id="prevBtn" href="#" onclick="showStep('prev')" class="btn">Previous</a>
+                <a id="nextBtn" href="#" onclick="showStep('next')" class="btn btn-success">Next</a>
+                <a id="startContrib" href="../epicollect/newtask" class="btn btn-primary" style="display:none"><i class="icon-thumbs-up"></i> Start Contributing!</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var step = -1;
+    function showStep(action) {
+        $("#" + step).hide();
+        if (action == 'next') {
+            step = step + 1;
+        }
+        if (action == 'prev') {
+            step = step - 1;
+        }
+        if (step == 0) {
+            $("#prevBtn").hide();
+        }
+        else {
+            $("#prevBtn").show();
+        }
+
+        if (step == 5 ) {
+            $("#nextBtn").hide();
+            $("#startContrib").show();
+        }
+        $("#" + step).show();
+    }
+
+    showStep('next');
+    $("#modal").modal('show');
+</script>

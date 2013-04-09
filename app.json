@@ -1,7 +1,7 @@
 {
-    "name": "Air Quality",
+    "name": "Air Quality with Biomarkers: Lichens",
     "short_name": "airquality",
     "thumbnail": "http://farm1.staticflickr.com/47/134314157_b17f465dfc.jpg",
-    "description": "Air Quality EpiCollect Project",
+    "description": "Air Quality using Lichens as Biomarkers",
     "question": "Air Quality of the city"
 }

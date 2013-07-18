@@ -17,13 +17,32 @@
 # along with PyBOSSA.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+import logging
 from optparse import OptionParser
+from requests import exceptions
 import pbclient
-from get_images import get_flickr_photos
 
 
 def contents(filename):
     return file(filename).read()
+
+
+def check_api_error(api_response):
+    """Check if returned API response contains an error"""
+    if type(api_response) == dict and (api_response.get('status') == 'failed'):
+        raise exceptions.HTTPError
+
+
+def format_error(module, error):
+    """Format the error for the given module"""
+    logging.error(module)
+    # Beautify JSON error
+    if type(error) == list:
+        print "Application not found"
+    else:
+        print json.dumps(error, sort_keys=True, indent=4, separators=(',', ': '))
+    exit(1)
+
 
 if __name__ == "__main__":
     # Arguments for the application
@@ -53,11 +72,6 @@ if __name__ == "__main__":
                       dest="update_tasks",
                       help="Update Tasks n_answers",
                       metavar="UPDATE-TASKS")
-
-    parser.add_option("-x", "--extra-task", action="store_true",
-                      dest="add_more_tasks",
-                      help="Add more tasks",
-                      metavar="ADD-MORE-TASKS")
 
     # Modify the number of TaskRuns per Task
     # (default 30)
@@ -98,7 +112,12 @@ if __name__ == "__main__":
         print('Using API-KEY: %s' % options.api_key)
 
     def find_app_by_short_name():
-        return pbclient.find_app(short_name=app_config['short_name'])[0]
+        try:
+            response = pbclient.find_app(short_name=app_config['short_name'])
+            check_api_error(response)
+            return response[0]
+        except:
+            format_error("pbclient.find_app", response)
 
     def setup_app():
         app = find_app_by_short_name()
@@ -107,41 +126,27 @@ if __name__ == "__main__":
         app.info['thumbnail'] = app_config['thumbnail']
         app.info['tutorial'] = contents('tutorial.html')
 
-        pbclient.update_app(app)
-        return app
-
-    def create_photo_task(app, photo, question):
-        # Data for the tasks
-        task_info = dict(question=question,
-                         n_answers=options.n_answers,
-                         link=photo['link'],
-                         url_m=photo['url_m'],
-                         url_b=photo['url_b'])
-        pbclient.create_task(app.id, task_info)
+        try:
+            response = pbclient.update_app(app)
+            check_api_error(response)
+            return app
+        except:
+            format_error("pbclient.update_app", response)
 
     if options.create_app:
-        pbclient.create_app(app_config['name'],
-                            app_config['short_name'],
-                            app_config['description'])
+        try:
+            response = pbclient.create_app(app_config['name'],
+                                           app_config['short_name'],
+                                           app_config['description'])
+            check_api_error(response)
+        except:
+            format_error("pbclient.create_app", response)
 
         app = setup_app()
 
-        # First of all we get the URL photos
-        # Then, we have to create a set of tasks for the application
-        # For this, we get first the photo URLs from Flickr
-
-        photos = get_flickr_photos()
-        question = app_config['question']
-        # Batch creation
-        for i in xrange(1):
-            [create_photo_task(app, p, question) for p in photos]
-    else:
-        if options.add_more_tasks:
-
-            app = find_app_by_short_name()
-            photos = get_flickr_photos()
-            question = "Do you see a human in this photo?"
-            [create_photo_task(app, p, question) for p in photos]
+        print ("You can import now the tasks directly from the PyBossa server:")
+        print "%s/app/%s/tasks/import?template=epicollect" % (options.api_url,
+                                                              app_config['short_name'])
 
     if options.update_template:
         print "Updating app template"
@@ -161,10 +166,18 @@ if __name__ == "__main__":
                 if ('n_answers' in task.info.keys()):
                     del(task.info['n_answers'])
                 task.n_answers = int(options.update_tasks)
-                pbclient.update_task(task)
-                n_tasks += 1
+                try:
+                    response = pbclient.update_task(task)
+                    check_api_error(response)
+                    n_tasks += 1
+                except:
+                    format_error("pbclient.update_task", response)
             offset = (offset + limit)
-            tasks = pbclient.get_tasks(app.id, offset=offset, limit=limit)
+            try:
+                tasks = pbclient.get_tasks(app.id, offset=offset, limit=limit)
+                check_api_error(tasks)
+            except:
+                format_error("pbclient.get_tasks", tasks)
         print "%s Tasks have been updated!" % n_tasks
 
     if not options.create_app and not options.update_template\

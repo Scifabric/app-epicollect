@@ -26,11 +26,14 @@ Testing the application
 You need to install the pybossa-client first (use a virtualenv):
 
 ```bash
-    $ pip install pybossa-client
+    $ pip install -r requirements.txt
 ```
 Then, you can follow the next steps:
 
 *  Create an account in PyBossa
+*  Create the application by running: python createTasks.py -k API_KEY -s SERVER -c
+*  The command will give you a URL to import the tasks from your EpiCollect
+   project
 *  Import the tasks from the EpiCollect Project: lichens (form Lichen)
 *  Open with your browser the Applications section and choose the epicollect app. This will open the presenter for this demo application.
 

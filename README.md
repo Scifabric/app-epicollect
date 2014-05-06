@@ -15,7 +15,7 @@ Then, the uploaded data via the volunteers, it can be analyzed in a PyBossa
 server. In this case, the volunteers will help also in measuring the area of
 the submitted lichen pictures.
 
-This procedure will allow to estimate teh quality of the air for a given area,
+This procedure will allow to estimate the quality of the air for a given area,
 based on the size of the reported and validated lichens.
 
 ![](http://i.imgur.com/AQYEwDZ.png)
@@ -30,8 +30,10 @@ You need to install the pybossa-client first (use a virtualenv):
 ```
 Then, you can follow the next steps:
 
-*  Create an account in PyBossa
-*  Create the application by running: python createTasks.py -k API_KEY -s SERVER -c
+*  Create an account in PyBossa (e.g. on http://crowdcrafting.org)
+*  Change the name and short_name of the application in the app.json file to something new
+*  Change all occurrences of 'airquality' in the template.html and tutorial.html file to your new short_name
+*  Create the application by running: python createTasks.py -k API_KEY -s SERVER (e.g. http://crowdcrafting.org) -c
 *  The command will give you a URL to import the tasks from your EpiCollect
    project
 *  Import the tasks from the EpiCollect Project: lichens (form Lichen)

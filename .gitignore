@@ -10,3 +10,6 @@ doc/_build
 epio.ini
 .epio-app
 .epioignore
+Include/*
+Lib/*
+Scripts/*

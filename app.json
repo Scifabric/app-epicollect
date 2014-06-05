@@ -1,7 +1,6 @@
 {
     "name": "Air Quality with Biomarkers: Lichens",
     "short_name": "airquality",
-    "thumbnail": "http://i.imgur.com/Xh5Zcu1.jpg",
     "description": "Air Quality using Lichens as Biomarkers",
     "question": "Air Quality of the city"
 }

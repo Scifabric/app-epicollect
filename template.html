@@ -54,11 +54,11 @@
             <h1 id="question">Do you see a lichen in this photo?</h1> <!-- The question will be loaded here -->
             <div id="answer"> <!-- Start DIV for the submission buttons -->
                 <!-- If the user clicks this button, the saved answer will be value="yes"-->
-                <button class="btn btn-success btn-answer" value='Yes'><i class="icon icon-white icon-thumbs-up"></i> Yes</button>
+                <button class="btn btn-success btn-answer" value='Yes'><i class="fa fa-thumbs-o-up"></i> Yes</button>
                 <!-- If the user clicks this button, the saved answer will be value="no"-->
-                <button class="btn btn-danger btn-answer" value='No'><i class="icon icon-white icon-thumbs-down"></i> No</button>
+                <button class="btn btn-danger btn-answer" value='No'><i class="fa fa-thumbs-p-down"></i> No</button>
                 <!-- If the user clicks this button, the saved answer will be value="NotKnown"-->
-                <button class="btn btn-answer" value='NotKnown'><i class="icon icon-white icon-question-sign"></i> I don't know</button>
+                <button class="btn btn-answer" value='NotKnown'><i class="fa fa-question"></i> I don't know</button>
             </div><!-- End of DIV for the submission buttons -->
         </div>
         <div id="step1a" style="display:none;">
@@ -68,21 +68,21 @@
                     <div class="thumbnail">
                         <img src="http://farm1.staticflickr.com/47/134314157_b17f465dfc.jpg">
                     <h3>Crusty</h3>
-                    <p style="font-size:10px;"><a href="http://www.flickr.com/photos/benetd/134314157/"><i class="icon-picture"></i> by benet2006</a></p>
+                    <p style="font-size:10px;"><a href="http://www.flickr.com/photos/benetd/134314157/"><i class="fa fa-picture-o"></i> by benet2006</a></p>
                     </div>
                 </li>
                 <li class="col-md-2">
                     <div class="thumbnail">
                         <img src="http://farm3.staticflickr.com/2607/3986134065_faebf320c6.jpg">
                         <h3>Leaflike</h3>
-                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/zquirell/3986134065/"><i class="icon-picture"></i> by Boriss Lariushin</a></p>
+                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/zquirell/3986134065/"><i class="fa fa-picture-o"></i> by Boriss Lariushin</a></p>
                     </div>
                 </li>
                 <li class="col-md-2">
                     <div class="thumbnail">
                         <img src="http://farm4.staticflickr.com/3294/2451758194_ea0bbfdcc9.jpg">
                         <h3>Shrubby</h3>
-                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/7147684@N03/2451758194/"><i class="icon-picture"></i> by Jason Hollinger</a></p>
+                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/7147684@N03/2451758194/"><i class="fa fa-picture-o"></i> by Jason Hollinger</a></p>
                     </div>
                 </li>
             </ul>
@@ -122,9 +122,9 @@
             <p>Now, you have to click in the image to draw a polygon on top of the biggest lichen shown in the photo.</p>
             <p><strong>Area: </strong><span id="totalArea">...</span></p>
             <p><strong>Air quality based on Area: </strong><span id="airQuality">...</span></p>
-            <button value="reset" class="btn btn-answer"><i class="icon-undo"></i> Reset the polygon and start again</button>
+            <button value="reset" class="btn btn-answer"><i class="fa fa-undo"></i> Reset the polygon and start again</button>
             <br/>
-            <button id="saveBtn" value="save" class="btn btn-primary btn-answer"><i class="icon-save"></i> Save the measured area!</button>
+            <button id="saveBtn" value="save" class="btn btn-primary btn-answer"><i class="fa fa-save"></i> Save the measured area!</button>
         </div>
         <!-- Feedback items for the user -->
         <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
@@ -140,8 +140,8 @@
             load the comments, if any, for the given task
         -->
         <div id="disqus_show_btn" style="margin-top:5px;">
-            <button class="btn btn-primary btn-large btn-disqus" onclick="loadDisqus()"><i class="icon-comments"></i> Show comments</button>
-            <button class="btn btn-large btn-disqus" onclick="loadDisqus()" style="display:none"><i class="icon-comments"></i> Hide comments</button>
+            <button class="btn btn-primary btn-large btn-disqus" onclick="loadDisqus()"><i class="fa fa-comments"></i> Show comments</button>
+            <button class="btn btn-large btn-disqus" onclick="loadDisqus()" style="display:none"><i class="fa fa-comments"></i> Hide comments</button>
         </div><!-- End of Disqus Button section -->
         <!-- Disqus thread for the given task -->
         <div id="disqus_thread" style="margin-top:5px;display:none"></div>

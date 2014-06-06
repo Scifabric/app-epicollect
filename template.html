@@ -98,7 +98,7 @@
                 <option value='shrubby'>Shrubby</option>
             </select>
             <br/>
-            <button  class="btn btn-answer" value="lichen-type">Done! Go to next step</button>
+            <button  class="btn btn-default btn-answer" value="lichen-type">Done! Go to next step</button>
         </div>
         <div id="step2" style="display:none;">
             <h1 id="question">Which coin is in the photo?</h1>
@@ -114,23 +114,23 @@
                 <option value='16.25'>0.01 EUR (Diameter in mm 16.25)</option>
             </select>
             <br/>
-            <button  class="btn btn-answer" value="coin-diameter">Done! Go to next step</button>
+            <button  class="btn btn-default btn-answer" value="coin-diameter">Done! Go to next step</button>
         </div>
         <div id="step3" style="display:none;">
             <h1>Calibrate the measurement</h1>
             <h2>Click in the center of the coin</h2>
             <h2 style="display:none">Now click in the border of the coin</h2>
             <br/>
-            <button id="coinBtn" value="area" class="btn btn-answer">Finish calibration and go to next step</button>
+            <button id="coinBtn" value="area" class="btn btn-default btn-answer">Finish calibration and go to next step</button>
         </div>
         <div id="step4" style="display:none;">
             <h1>Measure the biggest lichen shown in the photo</h1>
             <p>Now, you have to click in the image to draw a polygon on top of the biggest lichen shown in the photo.</p>
             <p><strong>Area: </strong><span id="totalArea">...</span></p>
             <p><strong>Air quality based on Area: </strong><span id="airQuality">...</span></p>
-            <button value="reset" class="btn btn-answer"><i class="fa fa-undo"></i> Reset the polygon and start again</button>
+            <button value="reset" class="btn btn-danger btn-answer"><i class="fa fa-undo"></i> Reset the polygon and start again</button>
             <br/>
-            <button id="saveBtn" value="save" class="btn btn-primary btn-answer"><i class="fa fa-save"></i> Save the measured area!</button>
+            <button id="saveBtn" value="save" class="btn btn-default btn-answer"><i class="fa fa-save"></i> Save the measured area!</button>
         </div>
         <!-- Feedback items for the user -->
         <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>

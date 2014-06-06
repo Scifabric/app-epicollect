@@ -57,12 +57,33 @@ this table (extracted from an [article](http://www.epa.gov/airnow/workshop_tea
 chers/dont_take_a_lichen_for_pollution.pdf) published by the [United States
 Enviromental Protection Agency](http://www.epa.gov/)):
 
-| Size (Square Milimeters) | Air Quality |   
-|------|---------|
-| 100 - 120 | Excellent       |
-| 70 - 90      |  Good       |
-| 40 - 60     |    Fair     |
-| 0 - 30     |    Poor |
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Size (Square Milimeters)</th>
+                    <th>Air Quality</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>100 - 120</td>
+                    <td>Excellent</td>
+                </tr>
+                <tr>
+                    <td>70 - 90</td>
+                    <td>Good</td>
+                </tr>
+                <tr>
+                    <td>40 - 60</td>
+                    <td>Fair</td>
+                </tr>
+                <tr>
+                    <td>0 - 30</td>
+                    <td>Poor</td>
+                </tr>
+            </tbody>
+        </table>
+
 
 Note: Info extracted from [United States Enviromental Protection
 Agency](http://www.epa.gov/) and

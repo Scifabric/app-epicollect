@@ -268,9 +268,15 @@ pybossa.taskLoaded(function(task, deferred) {
             // continue as soon as the image is loaded
             deferred.resolve(task);
         });
-        img.attr('src', task.info.picture);
+        if (task.info.picture) {
+            img.attr('src', task.info.picture);
+        }
+        else {
+            img.attr('src', "http://crowdcrafting.org/static/img/placeholder.project.png");
+        }
         img.addClass('col-md-12');
         task.info.image = img;
+
     }
     else {
         deferred.resolve(task);
@@ -433,5 +439,5 @@ pybossa.presentTask(function(task, deferred) {
     }
 });
 
-pybossa.run('misliquenes');
+pybossa.run('airquality');
 </script>

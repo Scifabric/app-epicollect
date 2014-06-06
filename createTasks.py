@@ -89,7 +89,7 @@ if __name__ == "__main__":
                       default="app.json")
 
     # Use bootstrap2 or 3 version for templates
-    parser.add_option("-b2" "--bootstrap2",
+    parser.add_option("--bootstrap2",
                       dest="bootstrap_two",
                       action="store_true",
                       help="Bootstrap version to use",

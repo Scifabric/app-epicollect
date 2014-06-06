@@ -88,6 +88,14 @@ if __name__ == "__main__":
                       metavar="APP-CONFIG",
                       default="app.json")
 
+    # Use bootstrap2 or 3 version for templates
+    parser.add_option("--bootstrap2",
+                      dest="bootstrap_two",
+                      action="store_true",
+                      help="Bootstrap version to use",
+                      metavar="BOOTSTRAP",
+                      default=False)
+
     parser.add_option("-v", "--verbose", action="store_true", dest="verbose")
     (options, args) = parser.parse_args()
 
@@ -121,10 +129,15 @@ if __name__ == "__main__":
 
     def setup_app():
         app = find_app_by_short_name()
-        app.long_description = contents('long_description.html')
-        app.info['task_presenter'] = contents('template.html')
-        app.info['thumbnail'] = app_config['thumbnail']
-        app.info['tutorial'] = contents('tutorial.html')
+        app.long_description = contents('long_description.md')
+        if options.bootstrap_two:
+            print "Using bootstrap2 templates"
+            app.info['task_presenter'] = contents('template_bootstrap2.html')
+            app.info['tutorial'] = contents('tutorial_bootstrap2.html')
+        else:
+            print "Using bootstrap3 templates"
+            app.info['task_presenter'] = contents('template.html')
+            app.info['tutorial'] = contents('tutorial.html')
 
         try:
             response = pbclient.update_app(app)

@@ -16,7 +16,7 @@
 </style>
 <div class="row">
     <!-- Success and Error Messages for the user --> 
-    <div class="col-md-6 col-md-offset-2" style="height:50px">
+    <div class="span6 offset2" style="height:50px">
         <div id="success" class="alert alert-success" style="display:none;">
             <a class="close">×</a>
             <strong>Well done!</strong> Your answer has been saved
@@ -32,11 +32,11 @@
             <strong>Congratulations!</strong> You have participated in all available tasks!
             <br/>
             <div class="alert-actions">
-                <a class="btn btn-default small" href="/">Go back</a>
-                <a class="btn btn-default small" href="/app">or, Check other projects</a>
+                <a class="btn small" href="/">Go back</a>
+                <a class="btn small" href="/app">or, Check other applications</a>
             </div>
         </div>
-        <div id="error" class="alert alert-danger" style="display:none;">
+        <div id="error" class="alert alert-error" style="display:none;">
             <a class="close">×</a>
             <strong>Error!</strong> Something went wrong, please contact the site administrators
         </div>
@@ -49,56 +49,50 @@
     task.
 -->
 <div class="row skeleton"> <!-- Start Skeleton Row-->
-    <div class="col-md-6 "><!-- Start of Question and Submission DIV (column) -->
+    <div class="span6 "><!-- Start of Question and Submission DIV (column) -->
         <div id="step1">
             <h1 id="question">Do you see a lichen in this photo?</h1> <!-- The question will be loaded here -->
             <div id="answer"> <!-- Start DIV for the submission buttons -->
                 <!-- If the user clicks this button, the saved answer will be value="yes"-->
-                <button class="btn btn-success btn-answer" value='Yes'><i class="fa fa-thumbs-o-up"></i> Yes</button>
+                <button class="btn btn-success btn-answer" value='Yes'><i class="icon icon-white icon-thumbs-up"></i> Yes</button>
                 <!-- If the user clicks this button, the saved answer will be value="no"-->
-                <button class="btn btn-danger btn-answer" value='No'><i class="fa fa-thumbs-p-down"></i> No</button>
+                <button class="btn btn-danger btn-answer" value='No'><i class="icon icon-white icon-thumbs-down"></i> No</button>
                 <!-- If the user clicks this button, the saved answer will be value="NotKnown"-->
-                <button class="btn btn-answer" value='NotKnown'><i class="fa fa-question-circle"></i> I don't know</button>
+                <button class="btn btn-answer" value='NotKnown'><i class="icon icon-white icon-question-sign"></i> I don't know</button>
             </div><!-- End of DIV for the submission buttons -->
         </div>
         <div id="step1a" style="display:none;">
             <h1>Which type of lichen do you see in the photo?</h1>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="thumbnail">
-                  <img src="http://farm1.staticflickr.com/47/134314157_b17f465dfc.jpg">
-                  <div class="caption">
-                    <h4>Crusty</h4>
-                    <p style="font-size:10px;"><a href="http://www.flickr.com/photos/benetd/134314157/"><i class="fa fa-picture-o"></i> by benet2006</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="thumbnail">
-                  <img src="http://farm1.staticflickr.com/47/134314157_b17f465dfc.jpg">
-                  <div class="caption">
-                    <h4>Crusty</h4>
-                    <p style="font-size:10px;"><a href="http://www.flickr.com/photos/benetd/134314157/"><i class="fa fa-picture-o"></i> by benet2006</a></p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="thumbnail">
+            <ul class="thumbnails">
+                <li class="span2">
+                    <div class="thumbnail">
+                        <img src="http://farm1.staticflickr.com/47/134314157_b17f465dfc.jpg">
+                    <h3>Crusty</h3>
+                    <p style="font-size:10px;"><a href="http://www.flickr.com/photos/benetd/134314157/"><i class="icon-picture"></i> by benet2006</a></p>
+                    </div>
+                </li>
+                <li class="span2">
+                    <div class="thumbnail">
+                        <img src="http://farm3.staticflickr.com/2607/3986134065_faebf320c6.jpg">
+                        <h3>Leaflike</h3>
+                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/zquirell/3986134065/"><i class="icon-picture"></i> by Boriss Lariushin</a></p>
+                    </div>
+                </li>
+                <li class="span2">
+                    <div class="thumbnail">
                         <img src="http://farm4.staticflickr.com/3294/2451758194_ea0bbfdcc9.jpg">
-                  <div class="caption">
-                        <h4>Shrubby</h4>
-                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/7147684@N03/2451758194/"><i class="fa fa-picture-o"></i> by Jason Hollinger</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+                        <h3>Shrubby</h3>
+                        <p style="font-size:10px;"><a href="http://www.flickr.com/photos/7147684@N03/2451758194/"><i class="icon-picture"></i> by Jason Hollinger</a></p>
+                    </div>
+                </li>
+            </ul>
             <select id="lichens" class="input-block-level">
                 <option value='crusty'>Crusty</option>
                 <option value='leaflike'>Leaflike</option>
                 <option value='shrubby'>Shrubby</option>
             </select>
             <br/>
-            <button  class="btn btn-default btn-answer" value="lichen-type">Done! Go to next step</button>
+            <button  class="btn btn-answer" value="lichen-type">Done! Go to next step</button>
         </div>
         <div id="step2" style="display:none;">
             <h1 id="question">Which coin is in the photo?</h1>
@@ -114,23 +108,23 @@
                 <option value='16.25'>0.01 EUR (Diameter in mm 16.25)</option>
             </select>
             <br/>
-            <button  class="btn btn-default btn-answer" value="coin-diameter">Done! Go to next step</button>
+            <button  class="btn btn-answer" value="coin-diameter">Done! Go to next step</button>
         </div>
         <div id="step3" style="display:none;">
             <h1>Calibrate the measurement</h1>
             <h2>Click in the center of the coin</h2>
             <h2 style="display:none">Now click in the border of the coin</h2>
             <br/>
-            <button id="coinBtn" value="area" class="btn btn-default btn-answer">Finish calibration and go to next step</button>
+            <button id="coinBtn" value="area" class="btn btn-answer">Finish calibration and go to next step</button>
         </div>
         <div id="step4" style="display:none;">
             <h1>Measure the biggest lichen shown in the photo</h1>
             <p>Now, you have to click in the image to draw a polygon on top of the biggest lichen shown in the photo.</p>
             <p><strong>Area: </strong><span id="totalArea">...</span></p>
             <p><strong>Air quality based on Area: </strong><span id="airQuality">...</span></p>
-            <button value="reset" class="btn btn-danger btn-answer"><i class="fa fa-undo"></i> Reset the polygon and start again</button>
+            <button value="reset" class="btn btn-answer"><i class="icon-undo"></i> Reset the polygon and start again</button>
             <br/>
-            <button id="saveBtn" value="save" class="btn btn-default btn-answer"><i class="fa fa-save"></i> Save the measured area!</button>
+            <button id="saveBtn" value="save" class="btn btn-primary btn-answer"><i class="icon-save"></i> Save the measured area!</button>
         </div>
         <!-- Feedback items for the user -->
         <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
@@ -138,7 +132,7 @@
         <!-- Progress bar for the user -->
         <span id="total" class="label label-inverse"></span></p>
         <div class="progress progress-striped">
-            <div id="progress" rel="tooltip" title="#" class="progress-bar" style="width: 0%;"></div>
+            <div id="progress" rel="tooltip" title="#" class="bar" style="width: 0%;"></div>
         </div>
         <!-- 
             This application uses Disqus to allow users to provide some feedback.
@@ -146,15 +140,14 @@
             load the comments, if any, for the given task
         -->
         <div id="disqus_show_btn" style="margin-top:5px;">
-            <button class="btn btn-primary btn-large btn-disqus" onclick="loadDisqus()"><i class="fa fa-comments"></i> Show comments</button>
-            <button class="btn btn-large btn-disqus" onclick="loadDisqus()" style="display:none"><i class="fa fa-comments"></i> Hide comments</button>
+            <button class="btn btn-primary btn-large btn-disqus" onclick="loadDisqus()"><i class="icon-comments"></i> Show comments</button>
+            <button class="btn btn-large btn-disqus" onclick="loadDisqus()" style="display:none"><i class="icon-comments"></i> Hide comments</button>
         </div><!-- End of Disqus Button section -->
         <!-- Disqus thread for the given task -->
         <div id="disqus_thread" style="margin-top:5px;display:none"></div>
     </div><!-- End of Question and Submission DIV (column) -->
-    <div id="layer0" class="col-md-6"><!-- Start of Photo DIV (column) -->
+    <div id="layer0" class="span6"><!-- Start of Photo DIV (column) -->
         <div id="layer1">
-            <div id="photo"></div>
         </div>
         <div id="layer2">
             <div id="measurements"></div>
@@ -268,15 +261,9 @@ pybossa.taskLoaded(function(task, deferred) {
             // continue as soon as the image is loaded
             deferred.resolve(task);
         });
-        if (task.info.picture) {
-            img.attr('src', task.info.picture);
-        }
-        else {
-            img.attr('src', "http://crowdcrafting.org/static/img/placeholder.project.png");
-        }
-        img.addClass('col-md-12');
+        img.attr('src', task.info.picture);
+        //img.addClass('img-polaroid');
         task.info.image = img;
-
     }
     else {
         deferred.resolve(task);
@@ -291,7 +278,7 @@ pybossa.presentTask(function(task, deferred) {
         $("#step3").hide();
         $("#step4").hide();
         loadUserProgress();
-        $('#photo').html('').append(task.info.image);
+        $('#layer1').html('').append(task.info.image);
         var imgWidth = task.info.image.width();
         var imgHeight = task.info.image.height();
         console.log(imgWidth);

@@ -131,9 +131,11 @@ if __name__ == "__main__":
         app = find_app_by_short_name()
         app.long_description = contents('long_description.md')
         if options.bootstrap_two:
+            print "Using bootstrap2 templates"
             app.info['task_presenter'] = contents('template_bootstrap2.html')
             app.info['tutorial'] = contents('tutorial_bootstrap2.html')
         else:
+            print "Using bootstrap3 templates"
             app.info['task_presenter'] = contents('template.html')
             app.info['tutorial'] = contents('tutorial.html')
 

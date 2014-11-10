@@ -137,7 +137,7 @@
         <p>You are working now on task: <span id="task-id" class="label label-warning">#</span></p>
         <p>You have completed: <span id="done" class="label label-info"></span> tasks from
         <!-- Progress bar for the user -->
-        <span id="total" class="label label-inverse"></span></p>
+        <span id="total" class="label label-info"></span></p>
         <div class="progress progress-striped">
             <div id="progress" rel="tooltip" title="#" class="progress-bar" style="width: 0%;"></div>
         </div>
@@ -304,7 +304,8 @@ pybossa.presentTask(function(task, deferred) {
         $("#question").html(task.info.question);
         $('#task-id').html(task.id);
         $('.btn-answer').off('click').on('click', function(evt) {
-            var answer = $(evt.target).attr("value");
+            var btn = $(this);
+            var answer = btn.attr("value");
             if (typeof answer != 'undefined') {
                 // Step 1: possible actions Yes, No or I don't Know
                 if (answer == 'Yes') {

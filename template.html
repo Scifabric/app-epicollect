@@ -119,8 +119,8 @@
         </div>
         <div id="step3" style="display:none;">
             <h1>Calibrate the measurement</h1>
-            <h2>Click in the center of the coin</h2>
-            <h2 style="display:none">Now click in the border of the coin</h2>
+            <h2 id="calibrate1">Click in the center of the coin</h2>
+            <h2 id="calibrate2" style="display:none">Now click in the border of the coin</h2>
             <br/>
             <button id="coinBtn" value="area" class="btn btn-default btn-answer">Finish calibration and go to next step</button>
         </div>
@@ -345,7 +345,8 @@ pybossa.presentTask(function(task, deferred) {
                                 task.info.answer['coinCenterX'] = X;
                                 task.info.answer['coinCenterY'] = Y;
                                 coinCenter = true;
-                                $("#step3 > h2").toggle();
+                                $("#calibrate1").hide();
+                                $("#calibrate2").show();
                                 $("#step3 > h2").highlight();
                             }
                             else {
@@ -369,6 +370,8 @@ pybossa.presentTask(function(task, deferred) {
                 }
                 // Step 3: possible actions area
                 if (answer == 'area') {
+                    $("#calibrate1").show();
+                    $("#calibrate2").hide();
                     $("#saveBtn").hide();
                     $("#step3").toggle();
                     $("#step4").toggle();

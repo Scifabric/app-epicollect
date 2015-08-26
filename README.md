@@ -23,32 +23,95 @@ based on the size of the reported and validated lichens.
 Testing the project
 =======================
 
-You need to install the pybossa-client first (use a virtualenv):
+You need to install pybossa-pbs. If you don't have a virtual environment,
+we recommend you to create one, and activate it:
+
+```bash
+    $ virtualenv env
+    $ source env/bin/activate
+```
+
+Then, you can install pybossa-pbs:
+
+```bash
+    $ pip install pybossa-pbs
+```
+
+Or if you prefer:
 
 ```bash
     $ pip install -r requirements.txt
 ```
-Then, you can follow the next steps:
 
-*  Create an account in PyBossa
-*  Create the project by running: python createTasks.py -k API_KEY -s SERVER -c
-*  The command will give you a URL to import the tasks from your EpiCollect
-   project
-*  Import the tasks from the EpiCollect Project: lichens (form Lichen)
-*  Open with your browser the Projects section and choose the epicollect project. This will open the presenter for this demo project.
+## Creating an account in a PyBossa server
+
+Now that you've all the requirements installed in your system, you need
+a PyBossa account:
+
+*  Create an account in your PyBossa server (use [Crowdcrafting](http://crowdcrafting.org) if you want).
+*  Copy your API-KEY (you can find it in your profile page).
+
+## Configure pybossa-pbs command line
+
+PyBossa-pbs command line tool can be configured with a config file in order to
+avoid typing the API-KEY and the server every time you want to take an action
+on your project. For this reason, we recommend you to actually create the
+config file. For creating the file, follow the next steps:
+
+```bash
+    $ cd ~
+    $ editorofyourchoice .pybossa.cfg
+```
+
+That will create a file. Now paste the following:
+
+```ini
+[default]
+server: http://yourpybossaserver.com
+apikey: yourapikey
+```
+
+Save the file, and you are done! From now on, pybossa-pbs will always use the
+default section to run your commands.
+
+## Create the project
+
+Now that we've everything in place, creating the project is as simple as
+running this command:
+
+```bash
+    $ pbs create_project
+```
+
+## Add the task presenter, tutorial and long description
+
+Now let's add to our project the required templates to show a better description
+of our project, to present the tasks to our users, and a small tutorial for the volunteers:
+
+```bash
+    $ pbs update_project
+```
+
+## Add the tasks from an Epicollect project
+
+First, go to your recently created project page. You should find it on
+http://yourpybossaserver/project/your-project-short-name. From there, you should
+be able to import the tasks from the EpiCollect Project: lichens (form Lichen).
+
+For more information about how to import tasks from an Epicollect project, please
+check the [documentation](http://docs.pybossa.com/en/latest/user/overview.html?highlight=epicollect#importing-the-tasks-from-an-epicollect-plus-public-project).
+
+Done!
+
+**NOTE**: we provide templates also for Bootstrap v2 in case your PyBossa
+server is using Bootstrap2 instead of Bootstrap3. See the rest of the files.
 
 Documentation
 =============
 
 We recommend that you read the section: [Build with PyBossa](http://docs.pybossa.com/en/latest/build_with_pybossa.html) and follow the [step by step tutorial](http://docs.pybossa.com/en/latest/user/tutorial.html).
 
-**NOTE**: This project uses the [pybossa-client](https://pypi.python.org/pypi/pybossa-client) in order to simplify the development of the project and its usage. Check the [documentation](http://pythonhosted.org/pybossa-client/).
-
-**NOTE**: Some PyBossa servers are using Bootstrap2 or Bootstrap3 for their
-templates. The default template is configured for Bootstrap3, so if the server
-is using v2, use the command line argument --bootstrap2 to select the proper
-template.
-
+**NOTE**: This project uses the [pybossa-pbs](https://pypi.python.org/pypi/pybossa-pbs) library in order to simplify the development of the project and its usage. Check the [documentation](https://github.com/PyBossa/pbs).
 
 LICENSE
 =======
@@ -60,9 +123,3 @@ Acknowledgments
 ===============
 
 The thumbnail has been created using a [(http://www.flickr.com/photos/benetd/134314157/)photo] from benet2006 (license CC BY 2.0).
-
-Note
-====
-The createTasks.py script can be used to update the templates of the
-project, not for getting the tasks as you can do that directly in the
-PyBossa server.

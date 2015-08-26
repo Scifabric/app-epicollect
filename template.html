@@ -301,7 +301,6 @@ pybossa.presentTask(function(task, deferred) {
         var paper = new Raphael("measurements", imgWidth, imgHeight);
         var coinCenter = false;
 
-        $("#question").html(task.info.question);
         $('#task-id').html(task.id);
         $('.btn-answer').off('click').on('click', function(evt) {
             var btn = $(this);
